@@ -6,6 +6,6 @@
     <title>A_1.1. Creando y accediendo a variables</title>
 </head>
 <body>
-    <?php ?>
+    <?php echo "hola" ?>
 </body>
 </html>
