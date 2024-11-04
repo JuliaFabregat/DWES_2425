@@ -4,11 +4,18 @@
     $username='Julia';
     $greeting="Bienvenid@: $username.";
     $productos=["Eyeliner", "Sombras", "Base de Maquillaje", "Rimmel"];
+    $precios=[
+        'Eyeliner'=>9.99,
+        'Sombras'=>11.99,
+        'Base'=>6.99,
+        'Rimmel'=> 12.99,
+    ];
     $offer=[
         'item'=>'Eyeliner Sephora Collection',
         'cantidad'=>5,
         'precio_normal'=>9.99,
         'precio_descuento'=>6.99,
+        'stock'=>5,
     ];
 
     // Calcular el precio usual sin descuento
@@ -32,16 +39,21 @@
     <p><?= $greeting ?></p>
     <h2>Lista de productos:</h2>
     <ul>
-        <li><?= $productos[0] ?> Sephora Collection</li>
-        <li><?= $productos[1] ?> NIX Collection</li>
-        <li><?= $productos[2] ?> Maybelline</li>
-        <li><?= $productos[3] ?> London Paris</li>
+        <li><?= $productos[0] ?> Sephora Collection:  <?= $precios['Eyeliner']?>€</li>
+        <li><?= $productos[1] ?> NIX Collection:  <?= $precios['Sombras']?>€</li>
+        <li><?= $productos[2] ?> Maybelline:  <?= $precios['Base']?>€</li>
+        <li><?= $productos[3] ?> London Paris:  <?= $precios['Rimmel']?>€</li>
     </ul>
 
     <br>
 
     <h2>Oferta Eyeliner - Sephora Collection</h2>
-    <p>Compra <?= $offer['cantidad'] ?> packs de <?= $offer['item'] ?> por $<?= $offer_price ?><br> (Precio sin descuento: $<?= $usual_price ?>)</p>
+    <p>Compra <?= $offer['cantidad'] ?> unidades de <?= $offer['item'] ?> por $<?= $offer_price ?><br> (Precio sin descuento: $<?= $usual_price ?>)</p>
     <p>Y ahorra: $<?= $saving ?>!</p>
+
+    <br>
+
+    <h2>Productos de oferta en stock: <?= $offer['stock']?></h2>
+
 </body>
 </html>
