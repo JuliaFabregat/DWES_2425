@@ -16,6 +16,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A_1.7. Abreviatura de echo </title>
+    <link rel="stylesheet" href="RecursosA1/css/styles.css">
 </head>
 <body>
     <h1>The Candy Store</h1>
