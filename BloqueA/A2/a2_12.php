@@ -1,11 +1,7 @@
 <!-- PHP -->
 <?php
     $name = '';
-    $greeting = 'Hello';
 
-    if($name !== ''){
-        $greeting = "Welcome back, $name";
-    }
 ?>
 
 <!DOCTYPE html>
@@ -13,11 +9,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A2_1. Sentencia IF</title>
+    <title>A2_12. Bucle FOREACH 2</title>
     <link rel="stylesheet" href="../A1/RecursosA1/css/styles.css">
 </head>
 <body>
     <h1>The Candy Store</h1>
-    <h2><?= $greeting ?></h2>
 </body>
 </html>
