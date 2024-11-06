@@ -1,7 +1,23 @@
 <!-- PHP -->
 <?php
-    $name = '';
+    // VARIABLES
+    $day = 'Wednesday';
 
+    // Switch
+    switch($day){
+        case 'Monday':
+            $offer = '20% off chocolates';
+            break;
+        case 'Tuesday':
+            $offer = '20% off mints';
+            break;
+        case 'Wednesday':
+            $offer = '20% off enchiladas';
+            break;
+        default:
+            $offer = 'Buy three packs, get one free';
+            break;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -14,5 +30,7 @@
 </head>
 <body>
     <h1>The Candy Store</h1>
+    <h2>Offers on <?= $day; ?></h2>
+    <p> <?= $offer ?> </p>
 </body>
 </html>

@@ -1,7 +1,13 @@
 <!-- PHP -->
 <?php
-    $name = '';
-
+    // VARIABLES
+    $products = [
+        'Toffee' => 2.99,
+        'Mints' => 1.99,
+        'Fudge' => 3.49,
+        'Enchiladas' => 4.99,
+        'Popcorn' => 3.99,
+    ];
 ?>
 
 <!DOCTYPE html>
@@ -14,5 +20,19 @@
 </head>
 <body>
     <h1>The Candy Store</h1>
+    <h2>Price List</h2>
+    <table>
+        <tr>
+            <th>Item</th>
+            <th>Price</th>
+        </tr>
+
+        <?php foreach($products as $item => $price) { ?>
+            <tr>
+                <td> <?= $item ?> </td>
+                <td> $ <?= $price ?> </td>
+            </tr>
+        <?php } ?>
+    </table>
 </body>
 </html>

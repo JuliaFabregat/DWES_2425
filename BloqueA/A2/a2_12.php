@@ -1,7 +1,7 @@
 <!-- PHP -->
 <?php
-    $name = '';
-
+    // VARIABLES
+    $best_sellers = ['Toffee', 'Mints', 'Fudge', 'Enchilada', 'Popcorn',];
 ?>
 
 <!DOCTYPE html>
@@ -14,5 +14,9 @@
 </head>
 <body>
     <h1>The Candy Store</h1>
+    <h2>Best Sellers</h2>
+    <?php foreach ($best_sellers as $candy) { ?>
+        <p><?= $candy ?></p>
+    <?php } ?>
 </body>
 </html>

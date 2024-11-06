@@ -1,8 +1,10 @@
 <!-- PHP -->
 <?php
+    // VARIABLES
     $name = '';
     $greeting = 'Hello';
 
+    // Condición
     if($name !== ''){
         $greeting = "Welcome back, $name";
     }

@@ -1,7 +1,16 @@
 <!-- PHP -->
 <?php
-    $name = '';
+    // VARIABLES
+    $stock = 0;
+    $ordered = 3;
 
+    if ($stock > 0){
+        $message = 'In Stock';
+    } elseif ($ordered > 0){
+        $message = 'Coming soon';
+    } else{
+        $message = 'Sold out';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -14,5 +23,7 @@
 </head>
 <body>
     <h1>The Candy Store</h1>
+    <h2>Chocolate</h2>
+    <p> <?= $message ?> </p>
 </body>
 </html>

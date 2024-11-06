@@ -1,7 +1,10 @@
 <!-- PHP -->
 <?php
-    $name = '';
+    // VARIABLES   
+    $stock = 0;
 
+    // Condición con Operador Ternario
+    $message = ($stock > 0) ? 'In stock' : 'More stock coming soon';
 ?>
 
 <!DOCTYPE html>
@@ -14,5 +17,7 @@
 </head>
 <body>
     <h1>The Candy Store</h1>
+    <h2>Chocolate</h2>
+    <p> <?= $message ?> </p>
 </body>
 </html>
