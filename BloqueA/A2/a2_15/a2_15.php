@@ -14,8 +14,8 @@
         $subtotal = $membership_cost * $months;             // Precio del primer mes sin descuento
         $percentDiscount = min(($months - 1) * 5, 50);      // Descuento máximo del 50%
         $discount = ($percentDiscount / 100) * $subtotal;   // Descuento de cada producto
-        $precioConDescuento = $subtotal - $discount;        // Precio final con el descuento aplicado
-        $precios[$months] = [$precioConDescuento, $discount, $subtotal]; // Guardamos el precio final en el array de precios
+        $priceWithDiscount = $subtotal - $discount;        // Precio final con el descuento aplicado
+        $finalPrices[$months] = [$priceWithDiscount, $discount, $subtotal]; // Guardamos el precio final en el array de precios
     }
 ?>
 
@@ -32,32 +32,33 @@
             <th>Price</th>
             <!-- Añadir columna del ahorro -->
             <th>Save</th>
+            <!-- Añadir columna del precio sin descuento -->
             <th>Without Discount</th>
         </tr>
         <!-- Bucle para mostrar los precios almacenados en el array $precios -->
         <!-- $meses es la CLAVE y $precioMensual es el VALOR-->
-        <?php foreach ($precios as $meses => $preciosConjuntos) { ?>
+        <?php foreach ($finalPrices as $months => $prices) { ?>
         <tr>
             <td>
                 <!-- Nº del mes, ya que es la CLAVE del array -->
-                <?= $meses ?>
+                <?= $months ?>
                 <!-- Operador ternario - Identifica si es 1 o más meses -->
-                month<?= ($meses === 1) ? '' : 's'; ?>
+                month<?= ($months === 1) ? '' : 's'; ?>
             </td>
             <td>
                 <!-- Precio con descuento: $precioConDescuento -->
-                $<?= $preciosConjuntos[0]; ?>
+                $<?= $prices[0]; ?>
             </td>
                 
             <td>
                 <!-- Cantidad que te ahorras: $discount -->
-                $<?= $preciosConjuntos[1]; ?>
+                $<?= $prices[1]; ?>
             </td>
 
             <td>
                 <!-- Precio sin descontar nada: $subtotal
-                     number_format($preciosConjuntos[2], 2): Elegir num. decimales a redondear-->
-                $<?= number_format($preciosConjuntos[2], 2) ?>
+                     number_format($prices[2], 2): Elegir num. decimales a redondear-->
+                $<?= number_format($prices[2], 2) ?>
             </td>
         </tr>
         <?php } ?>
