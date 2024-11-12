@@ -6,7 +6,7 @@
 
     // Condición - Operador Condicional
     if ($name) { // Si el $name tiene valor
-        $greeting = "Welcome to Sports-lag, $name!"; // Creamos un saludo personalizado
+        $greeting = "<br>Welcome to Sports-lag, $name!"; // Creamos un saludo personalizado
     }
 
     // Bucle for -> para aplicar los precios con descuento
