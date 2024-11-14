@@ -18,7 +18,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A3_8. Retornos múltiples y valores por defecto</title>
+    <title>A3_7.2. Habilitación de tipos estrictos</title>
     <link rel="stylesheet" href="../RecursosA/css/styles.css">
 </head>
 
