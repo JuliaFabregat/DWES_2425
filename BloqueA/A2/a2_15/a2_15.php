@@ -38,29 +38,25 @@
         <!-- Bucle para mostrar los precios almacenados en el array $precios -->
         <!-- $meses es la CLAVE y $precioMensual es el VALOR-->
         <?php foreach ($finalPrices as $months => $prices) { ?>
-        <tr>
-            <td>
-                <!-- Nº del mes, ya que es la CLAVE del array -->
-                <?= $months ?>
-                <!-- Operador ternario - Identifica si es 1 o más meses -->
-                month<?= ($months === 1) ? '' : 's'; ?>
-            </td>
-            <td>
-                <!-- Precio con descuento: $precioConDescuento -->
-                $<?= $prices[0]; ?>
-            </td>
-                
-            <td>
-                <!-- Cantidad que te ahorras: $discount -->
-                $<?= $prices[1]; ?>
-            </td>
+            <tr>
+                <td>
+                    <!-- Nº del mes, ya que es la CLAVE del array -->
+                    <?= $months ?>
+                    <!-- Operador ternario - Identifica si es 1 o más meses -->
+                    month<?= ($months === 1) ? '' : 's'; ?>
+                </td>
 
-            <td>
+                <!-- Precio con descuento: $precioConDescuento -->
+                <td> $<?= $prices[0]; ?> </td>
+                
+                <!-- Cantidad que te ahorras: $discount -->
+                <td> $<?= $prices[1]; ?> </td>
+
                 <!-- Precio sin descontar nada: $subtotal
-                     number_format($prices[2], 2): Elegir num. decimales a redondear-->
-                $<?= number_format($prices[2], 2) ?>
-            </td>
-        </tr>
+                        number_format($prices[2], 2): Elegir num. decimales a redondear-->
+                <td> $<?= $prices[2]; ?> </td>
+
+            </tr>
         <?php } ?>
 
     </table>
