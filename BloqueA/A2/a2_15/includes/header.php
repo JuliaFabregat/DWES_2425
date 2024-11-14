@@ -3,7 +3,7 @@
 <html>
     <head>
     <title>A2_15. Actividad Final - JuliaPF</title>
-    <link rel="stylesheet" href="../../A1/RecursosA1/css/styles.css">
+    <link rel="stylesheet" href="../../RecursosA/css/styles.css">
 </head>
 <body>
     <h1>Sports-lag</h1>

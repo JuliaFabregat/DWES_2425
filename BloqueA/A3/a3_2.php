@@ -2,7 +2,7 @@
 <?php
     // FUNCIONES
     function create_logo(){
-        return '<img src="./../A1/RecursosA1/img/logo.png" alt="logo" width="50" height="auto"/>';
+        return '<img src="./../RecursosA/img/logo.png" alt="logo" width="50" height="auto"/>';
     }
 
     function create_copyright_notice(){
@@ -18,7 +18,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A3_2. Secuencialidad y retorno en funciones</title>
-    <link rel="stylesheet" href="../A1/RecursosA1/css/styles.css">
+    <link rel="stylesheet" href="../RecursosA/css/styles.css">
 </head>
 
 <body>

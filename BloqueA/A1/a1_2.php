@@ -14,7 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>A_1.2. Actualizando el valor de una variable</title>
-    <link rel="stylesheet" href="RecursosA1/css/styles.css">
+    <link rel="stylesheet" href="../RecursosA/css/styles.css">
 </head>
 <body>
     <h1>The Candy Store</h1>

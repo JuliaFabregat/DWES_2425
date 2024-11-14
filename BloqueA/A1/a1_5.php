@@ -15,9 +15,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>
-    A_1.5. Modificando valores almacenados en arrays </title>
-    <link rel="stylesheet" href="RecursosA1/css/styles.css">
+    <title>A_1.5. Modificando valores almacenados en arrays </title>
+    <link rel="stylesheet" href="../RecursosA/css/styles.css">
 </head>
 <body>
     <h1>The Candy Store</h1>
