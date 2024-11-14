@@ -1,16 +1,35 @@
-<?php declare(strict_types=1);
-    //Variables
-    $price = 4.5;   // Ahora que tenemos activados los tipos estrictos sí nos daria error en el string
-    $quantity = 3;
+<?php //declare(strict_types=1);
+    // VARIABLES
+    //$stock = 25;    // Stock de Chocolate
+
+    // Array para la stock de X productos
+    $stock_items = [
+        'chocolate' => 25,
+        'mint' => 5,
+        'toffee' => 15,
+        'fudge' => 10,
+    ];
 
     // Funciones
-    // Como le indicamos que puede ser un int o float nos permite que $price sea 4.5
-    function calculate_total(float $price, int $quantity): int|float { // Podemos establecer 1 o más tipos de datos válidos
-        return $price * $quantity;
+    function get_stock_messsage($stock){
+        // Variables
+        $msg = "";
+
+        // Condicional
+        if($stock == 10){
+            $msg = 'Exactly 10 items in stock';
+        } else if($stock > 10){
+            $msg = 'Good availability';
+        } else if ($stock > 0 && $stock < 10){
+            $msg = 'Low stock';
+        } else {
+            $msg = 'Out of stock';
+        }
+
+        // Devuelve el mensaje al final
+        return $msg;
     }
 
-    // Variable para añadirlo al HTML
-    $total = calculate_total($price, $quantity);
 ?>
 
 <!DOCTYPE html>
@@ -23,12 +42,33 @@
 </head>
 
 <body>
-    <header>
-        <h1>The Candy Store</h1>
-    </header>
 
-    <h2>Chocolates</h2>
-    <p>Total: $<?= $total ?></p>
+    <h1>The Candy Store</h1>
+    <!-- Tabla para recoger los precios de cada producto -->
+    <table>
+        <tr>
+            <!-- Encabezado de la tabla -->
+            <th>Product</th>
+            <th>Stock</th>
+        </tr>
+
+        <!-- Filas y columnas generadas dinámicamente con el bucle: -->
+        <?php foreach ($stock_items as $item => $stock) { ?>
+            <tr>
+                <td><?= ucfirst($item) ?></td>  <!-- Nombre del producto con la primera letra en mayúsculas -->
+                <td><?= get_stock_messsage($stock) ?> (<?= $stock ?>)</td>  <!-- Mensaje de stock y cantidad -->
+            </tr>
+        <?php } ?>
+
+        <!-- Forma larga: -->
+        <!-- <tr>
+            <td>Chocolate</td>
+            <td><?= get_stock_messsage($stock_items['chocolate'])?> (<?= $stock_items['chocolate'] ?>)</td>
+        </tr> -->
+
+    </table>
+
+    <!-- <p><?= get_stock_messsage($stock) ?></p> -->
 
 </body>
 
