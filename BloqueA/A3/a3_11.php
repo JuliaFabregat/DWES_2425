@@ -46,7 +46,7 @@
                 <td> <?= $data['stock'] ?></td>
                 <td> <?= get_reorder_message($data['stock']) ?></td>
                 <td>$<?= get_total_value($data['price'], $data['stock']) ?></td>
-                <td>$<?= number_format(get_tax_due($data['price'], $data['stock'], $tax), 2) ?></td>
+                <td>$<?= get_tax_due($data['price'], $data['stock'], $tax) ?></td>
             </tr>
         <?php } ?>
     </table>
