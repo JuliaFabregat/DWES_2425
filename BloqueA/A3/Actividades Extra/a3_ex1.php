@@ -20,7 +20,7 @@
                 echo '<td>' . $num * $i . '</td>';
             echo '</tr>';
         }
-
+        
         echo '</table>';
     }
 ?>
