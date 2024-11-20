@@ -1,15 +1,16 @@
 <?php
-    // VARIABLES
+    // Variables
 
 
-    // FUNCIONES
+    // Funciones
     function tablaMult($num){
-
+        // Tabla realizada con echos
         echo '<table>';
         echo '<tr>';
             echo '<th colspan=5>Tabla del '. $num . '</th>';
         echo '</tr>';
-            
+
+        // Bucle para crear las columnas que corresponden a la tabla de multiplicar
         for($i = 1; $i <= 10; $i++){
             echo '<tr>';
                 echo '<td>'.$num.'</td>';
