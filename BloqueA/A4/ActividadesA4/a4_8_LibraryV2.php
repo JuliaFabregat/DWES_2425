@@ -1,6 +1,6 @@
 <?php
 // Incluimos las clases
-include './classes/Library_v2.php';
+include './classes/LibraryV2.php';
 include './classes/Book.php';
 
 // Creamos el objeto Book ya que es necesario para la clase Library

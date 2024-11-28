@@ -1,6 +1,6 @@
 <?php
 // Incluimos las clases
-include './classes/Account_v2.php';
+include './classes/AccountV2.php';
 
 // Creamos un objeto para guardarlo en la propiedad de la clase base Account
 $numbers = new AccountNumber(12345678, 987654321);
