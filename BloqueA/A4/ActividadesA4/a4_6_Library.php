@@ -25,10 +25,14 @@ $librosBibliotecaVentura = $biblioVentura->getBooks();
 
 <?php include 'includes/header.php'; ?>
 
-  <h2><?= $biblioVentura->libraryName ?> Library</h2>   <!-- Mostramos el nombre de la librería -->
+    <!-- Mostramos el nombre de la librería -->
+    <h2><?= $biblioVentura->libraryName ?> Library</h2>
+
     <ul>
-        <?php foreach($librosBibliotecaVentura as $libro): ?>  <!-- Recorremos el array de libros -->
-            <li><?= $libro ?></li>  <!-- Mostramos el título del libro -->
+        <!-- Recorremos el array de libros -->
+        <?php foreach($librosBibliotecaVentura as $libro): ?>
+            <!-- Mostramos el título del libro -->
+            <li><?= $libro ?></li>  
         <?php endforeach; ?>
     </ul>
 

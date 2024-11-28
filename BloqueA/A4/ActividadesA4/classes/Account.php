@@ -51,13 +51,13 @@ class Account{
         $this->balance += $amount;
 
         return $this->balance;
-        }
+    }
 
     public function withdraw(float $amount): float{
-    // Quita el valor pasado por parámetro a la propiedad balance y devuelve su nuevo valor
-    $this->balance -= $amount;
+        // Quita el valor pasado por parámetro a la propiedad balance y devuelve su nuevo valor
+        $this->balance -= $amount;
 
-    return $this->balance;
+        return $this->balance;
     }
 }
 ?>
