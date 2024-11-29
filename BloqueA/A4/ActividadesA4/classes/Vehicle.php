@@ -2,13 +2,13 @@
 // Clase que representa 1 vehículo
 class Vehicle {
     // Propiedades
-    private $make;
-    private $model;
-    private $licensePlate;
-    private $available;
+    public string $make;
+    public string $model;
+    public string $licensePlate;
+    public bool $available;
 
     // Constructor
-    public function __construct($make, $model, $licensePlate, $available) {
+    public function __construct(string $make, string $model, string $licensePlate, bool $available) {
         $this->make = $make;
         $this->model = $model;
         $this->licensePlate = $licensePlate;
@@ -16,11 +16,15 @@ class Vehicle {
     }
 
     // Métodos
-    public function getDetails() {
-        return "Marca: {$this->make} || Modelo: {$this->model} || Matrícula: {$this->licensePlate} || Disponible: " . ($this->available ? 'Sí' : 'No');
+    public function getDetails(): string {
+        return "<b>Marca:</b> {$this->make} <br>
+                <b>Modelo:</b> {$this->model} <br>
+                <b>Matrícula:</b> {$this->licensePlate} <br>
+                <b>Disponible:</b> " . ($this->available ? 'Sí' : 'No') . "<br>";
     }
 
-    public function isAvailable() {
+    public function isAvailable(): bool {
+        // Devolvemos si está disponible o no
         return $this->available;
     }
 }

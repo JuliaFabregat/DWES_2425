@@ -1,6 +1,6 @@
 <?php
-// Creación de una clase
 
+// Creación de una clase en el entorno
 class Customer{
     // Propiedades
     public string $forename;
@@ -45,6 +45,8 @@ $account->balance = 100.00;
 
 ?>
 
+
+<!-- HTML -->
 <?php include 'includes/header.php'; ?>
 
   <p>Name: <?= $customer->forename . " " . $customer->surname ?></p>

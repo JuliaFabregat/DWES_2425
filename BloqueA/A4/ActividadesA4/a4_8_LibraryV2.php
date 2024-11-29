@@ -1,7 +1,7 @@
 <?php
 // Incluimos las clases
-include './classes/LibraryV2.php';
-include './classes/Book.php';
+require_once './classes/LibraryV2.php';
+require_once './classes/Book.php';
 
 // Creamos el objeto Book ya que es necesario para la clase Library
 $libros = [
@@ -13,18 +13,27 @@ $libros = [
 // Creamos una instancia de la clase Cuenta + sus propiedades
 $biblioAthenas = new Library($libros, 'Athenas');
 
+// Añadimos más libros
+// Forma 1: $newBook = new Book("Hola Caracola", "Carmela", 150);
+//          $biblioAthenas->addBook($newBook);
+// Forma 2:
+$biblioAthenas->addBook(new Book("Hola Caracola", "Carmela", 150));
+
+
+
+// Eliminamos un libro
+$biblioAthenas->removeBook(new Book("1984", "George Orwell", 328));
+
 ?>
 
+
+<!-- HTML -->
 <?php include 'includes/header.php'; ?>
 
     <!-- Mostramos el nombre de la librería -->
     <h2><?= $biblioAthenas->libraryName ?> Library</h2>
-    <ul>
-        <!-- Recorremos el array de libros -->
-        <?php foreach($biblioAthenas->getBooks() as $libro): ?>
-            <!-- Mostramos las propiedades de la clase Book con sus getter, ya que los hemos realizado esta vez -->
-            <li><?= $libro->getTitle() ?> by <?= $libro->getAuthor() ?> (<?= $libro->getPages() ?> pages) </li>
-        <?php endforeach; ?>
-    </ul>
+
+    <!-- Usamos el método showBooks para mostrar los libros -->
+    <?php $biblioAthenas->showBooks(); ?>
 
 <?php include 'includes/footer.php'; ?>

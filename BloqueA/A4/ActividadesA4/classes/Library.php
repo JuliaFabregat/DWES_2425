@@ -34,6 +34,9 @@ class Library{
             }
         }
 
+        // Me han destrozado la vida, sí se podía usar el unset para eliminar un elemento de un array
+        // :''')
+
         // Actualizamos el array de libros con los que no se han borrado
         $this->books = $updateBooks;
     }

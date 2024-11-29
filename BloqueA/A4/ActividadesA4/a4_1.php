@@ -33,6 +33,8 @@ $account->balance = 1000.00;
 
 ?>
 
+
+<!-- HTML -->
 <?php include 'includes/header.php'; ?>
 
   <p>Name: <?= $customer->forename . " " . $customer->surname ?></p>

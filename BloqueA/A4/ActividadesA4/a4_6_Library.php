@@ -29,6 +29,7 @@ $librosBibliotecaVentura = $biblioVentura->getBooks();
     <h2><?= $biblioVentura->libraryName ?> Library</h2>
 
     <ul>
+        <!-- echo $biblioVentura->mostrarLibros(); -->
         <!-- Recorremos el array de libros -->
         <?php foreach($librosBibliotecaVentura as $libro): ?>
             <!-- Mostramos el título del libro -->

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-
+// NO INCLUIMOS LA CLASE EXTERNAMENTE YA QUE SIGUE PIDIENDO UN INT EN ACCOUNT EN VEZ DE UN ARRAY
 class Account{
     // PROPIEDADES ----
     public int $number;

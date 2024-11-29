@@ -1,38 +1,51 @@
 <?php
-require_once 'Vehicle.php';
 
 class Fleet {
     // Propiedades
-    private $name;
-    private $vehicles;
+    public string $name;
+    public array $vehicles;
 
     // Constructor
-    public function __construct($name) {
+    public function __construct(string $name, array $vehicles = []) {
         $this->name = $name;
-        $this->vehicles = [];
+        $this->vehicles = $vehicles;
     }
 
     // Métodos
-    public function addVehicle($vehicle) {
+    public function addVehicle($vehicle): void {
         $this->vehicles[] = $vehicle;
     }
 
     public function listVehicles() {
-        $output = "<b>Concesionario</b>: {$this->name}<br><br>";
+        // return $this->vehicles.
+
+        // Variables
+        $msj = "";
+
+        // Mostramos la lista de vehículos
         foreach ($this->vehicles as $vehicle) {
-            $output .= $vehicle->getDetails() . "<br>";
+            $msj .= $vehicle->getDetails() . "<br>";
         }
-        return $output;
+
+        // Mensaje de salida
+        return $msj;
     }
 
     public function listAvailableVehicles() {
-        $output = "<b>Vehículos disponibles en el parque:</b> {$this->name}<br><br>";
+        // Variables
+        $msj = "";
+
+        // Comprueba si tiene la propiedad isAvailable()
         foreach ($this->vehicles as $vehicle) {
             if ($vehicle->isAvailable()) {
-                $output .= $vehicle->getDetails() . "<br>";
+
+                // Formateamos el mensaje
+                $msj .= $vehicle->getDetails() . "<br>";
             }
         }
-        return $output;
+
+        // Mensaje de salida
+        return $msj;
     }
 }
 ?>
