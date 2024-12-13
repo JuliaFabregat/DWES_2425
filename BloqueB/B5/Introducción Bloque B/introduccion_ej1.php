@@ -27,8 +27,12 @@ $user_object = new User('Icy', 24, true);
 ?>
 
 <!-- HTML -->
+<?php include 'includes/header.php' ?>
+
 <!-- Con PRE englobando todo el texto -->
 <pre>Scalar: <?php var_dump($username); ?> </pre>
 <!-- Con PRE solo englobando la salida de PHP -->
 <p>Array: <pre> <?php var_dump($user_array); ?> </pre> </p>
 <p>Object: <pre> <?php var_dump($user_object); ?> </pre> </p>
+
+<?php include 'includes/footer.php' ?>
