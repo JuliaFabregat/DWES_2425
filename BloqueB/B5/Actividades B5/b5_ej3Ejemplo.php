@@ -9,7 +9,7 @@ $text = '/images/uploads/';
 
     <b>Remove '/' from boths ends: </b> <br>
     <?= trim($text, '/') ?>
-
+    <h1>Pepito</h1>
     <br>
 
     <b>Remove '/' from the left of the string: </b> <br>
