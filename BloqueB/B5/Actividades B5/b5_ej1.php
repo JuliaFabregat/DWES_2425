@@ -1,4 +1,4 @@
-<!-- Ejemplo: Conversión Mayúsculas/Minúsculas y contando Caracteres -->
+<!-- Ejemplo: Conversión Mayúsculas/Minúsculas y contando Caracteres (Pag 16) -->
 
 <!-- PHP -->
 <?php

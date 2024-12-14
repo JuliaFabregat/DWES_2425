@@ -1,4 +1,4 @@
-<!-- Ejemplo: Comprobación de Caracteres en una cadena -->
+<!-- Ejemplo: Comprobación de Caracteres en una cadena (Pag 30) -->
 <?php
 
 // Variables
