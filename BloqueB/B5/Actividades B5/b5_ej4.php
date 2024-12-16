@@ -36,18 +36,22 @@ $data = [
     "not-a-url"
 ];
 
-// Validación de correos electrónicos
-$emailRegex = '/^[a-z0-9._%-]+@[a-z0-9.-]+\.(com|es)$/i';
+
+// PREG_MATCH -> Validación de correos electrónicos
+$emailRegex = '/^[a-z0-9._%-]+@[a-z0-9.-]+\.[a-z]{2,6}$/i';
 $validEmails = [];
+
 foreach ($data as $item) {
     if (preg_match($emailRegex, $item)) {
         $validEmails[] = $item;
     }
 }
 
-// Extracción de números de teléfono
+
+// PREG_MATCH_ALL -> Extracción de números de teléfono
 $phoneRegex = '/\b\d{3}[-.]\d{3}[-.]\d{4}\b/';
 $validPhones = [];
+
 foreach ($data as $item) {
     if (preg_match_all($phoneRegex, $item, $matches)) {
         foreach ($matches[0] as $phone) {
@@ -56,32 +60,36 @@ foreach ($data as $item) {
     }
 }
 
-// División de URLs
-$urlRegex = '/^(https?):\/\/([a-z0-9.-]+)\.([a-z]{2,6})(\/[a-z0-9._%-]*)?(\?.*)?$/i';
+
+// PREG_SPLIT -> División de URLs
+$urlRegex = '/[/:?]/';
 $validUrls = [];
+
 foreach ($data as $item) {
-    if (preg_match($urlRegex, $item, $matches)) {
+    $components = preg_split($urlRegex, $item, -1, PREG_SPLIT_NO_EMPTY);
+    if (count($components) >= 3 && ($components[0] === 'http' || $components[0] === 'https')) {
+        $path = '';
+        if (count($components) > 2) {
+            for ($i = 2; $i < count($components); $i++) {
+                $path .= ($i > 2 ? '/' : '') . $components[$i];
+            }
+        }
         $validUrls[] = [
-            'protocol' => $matches[1],
-            'domain' => $matches[2],
-            'tld' => $matches[3],
-            'path' => $matches[4] ?? '',
-            'query' => $matches[5] ?? ''
+            'protocol' => $components[0],
+            'domain' => $components[1],
+            'path' => $path
         ];
     }
 }
 
-// Limpieza de correos inválidos
-$invalidEmails = [];
-foreach ($data as $item) {
-    if (preg_match($emailRegex, $item)) {
-        $invalidEmails[] = $item;
-    } else {-
-        $invalidEmails[] = ''; // Correo inválido -> cadena vacía
-    }
-}
-?>
+// PREG_REPLACE -> Limpieza de correos inválidos
+$cleanedData = [];
 
+foreach ($data as $item) {
+    $cleanedData[] = preg_replace($emailRegex, '', $item);
+}
+
+?>
 
 <!-- HTML -->
 <?php include './includes/header.php'; ?>
@@ -107,9 +115,7 @@ foreach ($data as $item) {
             <ul>
                 <li>Protocolo: <?= $url['protocol'] ?></li>
                 <li>Dominio: <?= $url['domain'] ?></li>
-                <li>Extensión: <?= $url['tld'] ?></li>
                 <li>Ruta: <?= $url['path'] ?></li>
-                <li>Consulta: <?= $url['query'] ?></li>
             </ul>
         </li>
     <?php endforeach; ?>
