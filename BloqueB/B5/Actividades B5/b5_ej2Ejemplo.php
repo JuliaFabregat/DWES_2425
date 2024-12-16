@@ -1,4 +1,4 @@
-<!-- Ejemplo: Comprobación de Caracteres en una cadena -->
+<!-- Ejemplo: Comprobación de Caracteres en una cadena (Pag 29)-->
 <?php 
 // Variables
 $text = 'Home sweet home'
