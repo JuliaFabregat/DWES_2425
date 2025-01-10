@@ -1,4 +1,6 @@
-<?php 
+<!-- Redirigir a una página de error (Pag. 60) -->
+
+<?php
 // Array con los ID de los productos
 $idProductos = [0,1,2];
 

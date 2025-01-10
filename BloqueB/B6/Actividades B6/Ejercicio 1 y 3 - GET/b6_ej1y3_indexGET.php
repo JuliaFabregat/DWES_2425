@@ -1,3 +1,6 @@
+<!-- Ejercicio 1.  Usando una cadena de consulta para seleccionar contenido (Pag. 28) -->
+<!-- Ejercicio 3.  Validación de datos en la cadena de consulta (Pag. 49)-->
+
 <?php 
 // Array con los ID de los productos
 $idProductos = [0,1,2];

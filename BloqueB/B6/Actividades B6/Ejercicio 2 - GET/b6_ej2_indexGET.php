@@ -1,3 +1,5 @@
+<!-- Ejercicio 2. Usando una cadena de consulta para seleccionar contenido (II) (Pag. 38)-->
+
 <?php 
 // Array de ciudades
 $cities = [
