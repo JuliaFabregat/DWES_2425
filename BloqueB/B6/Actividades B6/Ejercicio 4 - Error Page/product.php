@@ -14,7 +14,7 @@ $valid = array_key_exists($id, $productos);
 
 if(!$valid){
     http_response_code(404);
-    header('Location: b6_ej4_error-page.php');
+    header('Location: error-page.php');
     exit;
 } else{
     $producto = $productos[$id];
@@ -32,6 +32,6 @@ if(!$valid){
     <li>Juego: <?= $producto['nombre'] ?> </li>
     <li>Nº Personajes: <?= $producto['personajes'] ?> </li>
 </ul>
-<a href="b6_ej4_index.php">Volver</a>
+<a href="index.php">Volver</a>
 
 <?php include '../includes/footer.php'; ?>

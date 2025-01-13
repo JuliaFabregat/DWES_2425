@@ -25,12 +25,12 @@ if ($city === '') {
 
 
 <!-- HTML -->
-<?php include '../Actividades B6/includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
 
 <!-- Mostramos cada ciudad del array -->
 <?php foreach ($cities as $key => $value) { ?>
-    <a href="b6_ej2_GET.php?city=<?= $key ?>"> <?= $key ?></a>
+    <a href="indexGET.php?city=<?= $key ?>"> <?= $key ?></a>
 <?php }?>
 
 <!-- Consultamos Tokio sin tenerlo añadido al Array -->
@@ -40,4 +40,4 @@ if ($city === '') {
 <p><?= $address ?></p>
 
 
-<?php include '../Actividades B6/includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

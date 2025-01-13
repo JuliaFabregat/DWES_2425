@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>Chapter 6 Examples</title>
-    <link href="css/styles.css" rel="stylesheet">
+    <link href="./css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <meta charset="UTF-8">
   </head>

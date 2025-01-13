@@ -33,11 +33,11 @@ if (array_key_exists($id, $productos)) {
         <li>Juego: <?= $producto['nombre'] ?> </li>
         <li>Nº Personajes: <?= $producto['personajes'] ?> </li>
     </ul>
-    <a href="b6_ej1y3_indexGET.php">Volver</a>
+    <a href="indexGET.php">Volver</a>
     
 <?php } else{ ?>
     <p><?= $status ?></p>
-    <a href="b6_ej1y3_indexGET.php">Volver</a>
+    <a href="indexGET.php">Volver</a>
 <?php }?>
 
 
