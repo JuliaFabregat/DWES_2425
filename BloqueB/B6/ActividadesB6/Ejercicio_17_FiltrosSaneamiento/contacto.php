@@ -21,13 +21,14 @@ $data = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Definir filtros para saneamiento de datos
-    $filters['name'] = FILTER_SANITIZE_STRING;             // Limpia texto, elimina etiquetas HTML
-    $filters['email'] = FILTER_SANITIZE_EMAIL;             // Limpia el correo electrónico
-    $filters['phone'] = FILTER_SANITIZE_NUMBER_INT;        // Elimina caracteres no numéricos
-    $filters['message'] = FILTER_SANITIZE_STRING;          // Limpia el mensaje de etiquetas HTML
+    $filters['name'] = FILTER_NULL_ON_FAILURE;
+    $filters['email']= FILTER_VALIDATE_EMAIL;
+    $filters['phone']['filter'] = FILTER_VALIDATE_REGEXP;
+    $filters['phone']['options'] = ['regexp' => '/^\d{9,11}$/'];
+    $filters['message'] = FILTER_DEFAULT;
 
     // Captura y saneo de datos
-    $formulario = filter_input_array(INPUT_POST);
+    $formulario = filter_input_array(INPUT_POST, $filters);
     $data = filter_var_array($formulario, $filters);
 
     // Validar errores
@@ -35,6 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors['email'] = filter_var($formulario['email'], FILTER_VALIDATE_EMAIL) ? '' : 'El correo electrónico no es válido.';
     $errors['phone'] = $formulario['phone'] ? '' : 'El número de teléfono es requerido.';
     $errors['message'] = $formulario['message'] ? '' : 'El mensaje no puede estar vacío.';
+
+    // Sanitizar datos
+    $data['name'] = filter_var($formulario['name'], FILTER_SANITIZE_STRING);
+    $data['email'] = filter_var($formulario['email'], FILTER_SANITIZE_EMAIL);
+    $data['phone'] = filter_var($formulario['phone'], FILTER_SANITIZE_STRING);
+    $data['message'] = filter_var($formulario['message'], FILTER_SANITIZE_STRING);
 }
 
 ?>
