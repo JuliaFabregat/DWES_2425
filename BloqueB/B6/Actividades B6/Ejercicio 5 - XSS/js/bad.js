@@ -1,1 +1,0 @@
-alert("¿Para nada malicioso eh? MUAJAJAJA. Has sido XSS atacado, parguela.")
