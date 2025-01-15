@@ -1,7 +1,7 @@
 <?php 
 declare(strict_types=1);
 
-// Ejercicio 12. Validando Formularios (Pag. 197)
+// Ejercicio 13. Funciones Filtro (Pag. 208)
 
 // Inicialización
 $user = [

@@ -14,10 +14,10 @@
   function is_password($password): bool
   {
     if ( mb_strlen($password) >= 8
-         and preg_match('/[A-Z]/', $password)
-         and preg_match('/[a-z]/', $password)
-         and preg_match('/[0-9]/', $password)
-       ) {
+      and preg_match('/[A-Z]/', $password)
+      and preg_match('/[a-z]/', $password)
+      and preg_match('/[0-9]/', $password)
+    ) {
       return true;  // Passed all tests
     } 
     return false;   // Invalid
