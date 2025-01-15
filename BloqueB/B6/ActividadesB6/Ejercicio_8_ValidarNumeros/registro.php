@@ -1,6 +1,8 @@
 <?php 
 declare(strict_types = 1);
 
+// Ejercicio 8. Validar NÚMEROS (Pag. 135)
+
 // Validando con $_POST
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     // Recogemos los datos
@@ -52,7 +54,7 @@ function edadValida($number, int $min = 0, int $max = 0): bool{
 
 <h1>Formulario de Registro para CordobitaFC</h1>
 
-<form action="index.php" method="POST">
+<form action="registro.php" method="POST">
     <p>Nombre:      <input type="text" name="nombre" value="<?= htmlspecialchars($nombre ?? '') ?>"></p>
     <p>Apellido:    <input type="text" name="apellido" value="<?= htmlspecialchars($apellido ?? '') ?>"></p>
     <p>Edad:        <input type="number" name="edad" value="<?= htmlspecialchars($edad ?? '') ?>"></p>
