@@ -14,8 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $formulario = filter_input_array(INPUT_POST, [ 'ip' => FILTER_VALIDATE_IP, ]);  // Validamos con IP ya que es una dirección IP
 
     // Validar dirección IP
-    if ($formulario['ip'] && filter_var($formulario['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) { // filter_var() -> valida/sanitiza datos mediante filtros predefinidos
-                                                                                                    // filter_var($datoAvalidar, FILTRO_A_APLICAR, $opcionesOpcionales)
+    if ($formulario['ip'] && filter_var($formulario['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+        // filter_var() -> valida/sanitiza datos mediante filtros predefinidos
+        // filter_var($datoAvalidar, FILTRO_A_APLICAR, $opcionesOpcionales)
         $user['ip'] = $formulario['ip'];
         $message = "La dirección IP <b>{$user['ip']}</b> es válida.";
     } else {

@@ -30,17 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $user['terms'] = isset($formulario['terms']) && $formulario['terms'] === 'on';
 
     // Validación de errores
-    $errors['email'] = validEmail($user['email'], 8, 100)
-        ? '' 
-        : 'El correo debe tener entre 8 y 100 caracteres para ser válido.';
-    
-    $errors['age'] = validAge((int)$user['age'], 16, 35) 
-        ? '' 
-        : 'La edad debe estar entre 16 y 35 años.';
-    
-    $errors['terms'] = $user['terms'] 
-        ? '' 
-        : 'Debes aceptar los términos y condiciones para continuar.';
+    $errors['email'] = validEmail($user['email'], 8, 100) ? '' : 'El correo debe tener entre 8 y 100 caracteres para ser válido.';    
+    $errors['age'] = validAge((int)$user['age'], 16, 35) ? '' : 'La edad debe estar entre 16 y 35 años.';
+    $errors['terms'] = $user['terms'] ? '' : 'Debes aceptar los términos y condiciones para continuar.';
 
     // Validar si hay errores
     $invalid = implode('', $errors);
