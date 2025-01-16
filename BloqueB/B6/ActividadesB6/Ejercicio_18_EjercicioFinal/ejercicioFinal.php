@@ -78,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <!-- HTML -->
 <?php include '../includes/header.php'; ?>
 
+
 <h1>Formulario de registro para eventos</h1>
 
 <form action="ejercicioFinal.php" method="POST">
@@ -116,10 +117,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!-- Mostramos los datos del formulario -->
 <?php if ($_SERVER['REQUEST_METHOD'] === 'POST') { ?>
-    <h2>Resultados:</h2>
+    <p><b>Resultados:</b></p>
     <pre><?php var_dump($datos); ?></pre>
 <?php } ?>
-
 
 
 <?php include '../includes/footer.php'; ?>
