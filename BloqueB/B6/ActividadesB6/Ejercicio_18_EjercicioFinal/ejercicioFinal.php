@@ -18,7 +18,7 @@ $error = [
     'evento' => '',
     'terminos' => '',
 ];
-// Array de datos SANEADOS
+// Array de datos SANEADOS | No está términos
 $datos = [
     'nombre' => '',
     'email' => '',
@@ -49,14 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         'email' => FILTER_SANITIZE_EMAIL,
         'telefono' => FILTER_SANITIZE_NUMBER_INT,
         'evento' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
-        //'terminos' => FILTER_SANITIZE_NUMBER_INT,           // No existe un Filter para BOOLEAN, si dejo el campo vacío sale error
+        //'terminos' => FILTER_SANITIZE_NUMBER_INT,          
+        // No existe un Filter para BOOLEAN | Si dejo el campo vacío sale error, hay que sacarlo del array de datos *
     ]);
 
     // Saneamiento manual:
     // $usuario['nombre'] = htmlspecialchars($_POST['nombre'] ?? '');
 
     // Validar los errores
-    $error['nombre'] = $usuario['nombre'] ? '' : 'El nombre completo es obligatorio y debe contener entre 2 y 50 caracteres.';
+    $error['nombre'] = $usuario['nombre'] ? '' : 'El nombre es obligatorio y debe contener entre 2 y 50 caracteres.';
     $error['email'] = $usuario['email'] ? '' : 'El correo electrónico no es válido.';
     $error['telefono'] = $usuario['telefono'] ? '' : 'El teléfono debe ser un número válido con al menos 9 dígitos.';
     $error['evento'] = $usuario['evento'] ? '' : 'Debe seleccionar un tipo de evento válido.';
