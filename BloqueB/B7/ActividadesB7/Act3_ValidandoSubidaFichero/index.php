@@ -1,9 +1,34 @@
 <?php
-// Ejercicio 2. Moviendo un archivo subido (Pag. 37)
-
+// Ejercicio 3. Validando subidas de ficheros (Pag. 58) - Leer Pag 45
 // Inicialización
 $msj = '';
 $moved = false;
+$error = '';
+$uploadPath = './uploads/';     // Ruta donde subiremos la img
+$max_size = 5242880;            // Tamaño máx en Bytes que puede tener la img
+$allowedTypes = ['image/jpeg', 'image/png', 'image/gif',];
+$allowedExtensions = ['jpeg', 'jpg', 'png', 'gif',];
+$i = 1;
+
+// FUNCIÓN QUE VALIDA EL NOMBRE DEL ARCHIVO
+function createFilename($fileName, $uploadPath){
+    // Obtiene el nombre base y la extensión del archivo
+    $baseName = pathinfo($fileName, PATHINFO_FILENAME);
+    $extension = pathinfo($fileName, PATHINFO_EXTENSION);
+    // Reemplazamos cualquier caracter en el nombre que no sea A-z0-9 por un -
+    $baseName = preg_replace('/[^A-z0-9]/', '-', $baseName);
+    // Creamos la ruta en la que guardaremos el archivo + nombre limpio + extensión
+    $filePath = './uploads/' . $baseName . '.' . $extension;
+    
+    // Para evitar que los archivos con nombres duplicados se sobreescriban
+    while(file_exists('uploads/' . $fileName)){
+        $i = $i+1;
+        $fileName = $baseName . '('. $i . ')' . '.' . $extension;
+    }
+
+    return $fileName;
+}
+
 
 // Comprobar petición
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
