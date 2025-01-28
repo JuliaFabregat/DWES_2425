@@ -1,4 +1,5 @@
 <?php
+// Ejercicio 4. Redimensionando Imágenes usando GD (Pag. 105)
 // Inicialización
 $moved         = false;                                       
 $message       = '';                                           
@@ -105,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($moved === true and $resized === true) {
         $message = '<img src="' . $thumbpath . '">';                    // Mostramos el Thumbnail
     } else {
-        $message = '<b>Could not upload file</b> ' . $error;            // Mostramos los errores
+        $message = '<b>Could not upload file</b> ' . $error;
     }
 }
 ?>
