@@ -118,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <?= $message ?>
 
-    <form method="POST" action="resize-gd.php" enctype="multipart/form-data">
+    <form method="POST" action=<?= $_SERVER['PHP_SELF'] ?> enctype="multipart/form-data">
         <label for="image"><b>Upload file:</b></label>
         <input type="file" name="image" accept="image/*" id="image"><br>
         <input type="submit" value="upload">
