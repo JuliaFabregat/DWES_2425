@@ -12,6 +12,7 @@ function create_cropped_thumbnail($source, $thumbpath)
     $image = new Imagick($source);                          // Object to represent image
     $image->cropThumbnailImage(200, 200);                   // Create cropped thumbnail
     $image->writeImage($thumbpath);                         // Save file
+    
     return true;                                            // Return true to show success
 }
 

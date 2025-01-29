@@ -1,11 +1,11 @@
 <?php
-// Ejercicio 4. Redimensionando Imágenes usando GD (Pag. 105)
+// Ejercicio 5. Redimensionando Imágenes usando Imagick (Pag. 117)
 // Inicialización
 $moved         = false;                                       
-$msj       = '';                                           
+$msj           = '';                                           
 $error         = '';                                           
-$upload_path   = 'uploads/';                                   // Path para img normales
-$thumb_path    = 'uploads/thumbs/';                            // Path para thumbnails
+$upload_path   = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'uploads'  . DIRECTORY_SEPARATOR;
+$thumb_path    = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'thumbs'  . DIRECTORY_SEPARATOR;
 $max_size      = 5242880;                                      // Max file size (5MB)
 $allowed_types = ['image/jpeg', 'image/png', 'image/gif',];
 $allowed_exts  = ['jpeg', 'jpg', 'png', 'gif',];
@@ -28,54 +28,12 @@ function create_filename($filename, $upload_path){
 }
 
 // FUNCIÓN - Redimensionar Img
-function resize_image_gd($orig_path, $new_path, $max_width, $max_height){
+function resize_image_imagick($source, $thumb_path){
+    $img = new Imagick($source);
+    $img->cropThumbnailImage(200, 200); // Create cropped thumbnail
+    $img->writeImage($thumb_path);      // Save file
 
-    // Inicialización
-    $image_data  = getimagesize($orig_path);
-    $orig_width  = $image_data[0];                        // ANCHO
-    $orig_height = $image_data[1];                        // ALTO
-    $media_type  = $image_data['mime'];                   // Media type
-    $new_width   = $max_width;                            // Inicializamos el máximo de ambas
-    $new_height  = $max_height;
-    $orig_ratio  = $orig_width / $orig_height;            // Original image ratio
-
-    // Calculamos el nuevo tamaño
-    if ($orig_width > $orig_height) {                     // Si es un landscape
-        $new_height = $new_width / $orig_ratio;           // Set height usando el ratio
-    } else {
-        $new_width  = $new_height * $orig_ratio;          // Set width usando el ratio
-    }
-    
-    // Switch de casos
-    switch($media_type) {
-        case 'image/gif' :
-            $orig = imagecreatefromgif($orig_path);
-            break;
-        case 'image/jpeg' :
-            $orig = imagecreatefromjpeg($orig_path);
-            break;
-        case 'image/png' :
-            $orig = imagecreatefrompng($orig_path);
-            break;
-    }
-
-    $new = imagecreatetruecolor($new_width, $new_height); // Creamos la img en blanco
-
-    imagecopyresampled($new, $orig, 0, 0, 0, 0, $new_width, $new_height, $orig_width, $orig_height); // Copiamos la Original con la nueva
-
-    // Guardamos la img
-    switch($media_type) {
-        case 'image/gif' : 
-            $result = imagegif($new, $new_path);  
-            break;
-        case 'image/jpeg':
-            $result = imagejpeg($new, $new_path);
-            break;
-        case 'image/png' :
-            $result = imagepng($new, $new_path);
-            break;
-    }
-    return $result;
+    return true;
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -98,13 +56,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $destination = $upload_path . $filename;
             $thumbpath   = $thumb_path . 'thumb_' . $filename;
             $moved       = move_uploaded_file($_FILES['image']['tmp_name'], $destination);
-            $resized     = resize_image_gd($destination, $thumbpath, 200, 200);
+            $resized     = resize_image_imagick($destination, $thumbpath);
         }
     }
 
+    // Variable para la imagen
+    $showImg = './uploads/thumbs/thumb_' . $filename;
+
     // Si todo ha ido bien y se ha movido
     if ($moved === true and $resized === true) {
-        $msj = '<img src="' . $thumbpath . '">';                    // Mostramos el Thumbnail
+        $msj = '<img src="' . $showImg . '">';  // Mostramos el Thumbnail
     } else {
         $msj = '<b>Could not upload file</b> ' . $error;
     }
