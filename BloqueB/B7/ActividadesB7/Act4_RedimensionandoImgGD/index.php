@@ -2,7 +2,7 @@
 // Ejercicio 4. Redimensionando Imágenes usando GD (Pag. 105)
 // Inicialización
 $moved         = false;                                       
-$msj       = '';                                           
+$msj           = '';                                           
 $error         = '';                                           
 $upload_path   = 'uploads/';                                   // Path para img normales
 $thumb_path    = 'uploads/thumbs/';                            // Path para thumbnails
@@ -13,10 +13,10 @@ $allowed_exts  = ['jpeg', 'jpg', 'png', 'gif',];
 // FUNCIÓN - Crear Nombre de Archivo
 function create_filename($filename, $upload_path){
 
-    $basename   = pathinfo($filename, PATHINFO_FILENAME);      // Captamos el basename
-    $extension  = pathinfo($filename, PATHINFO_EXTENSION);     // Captamos la extension
-    $basename   = preg_replace('/[^A-z0-9]/', '-', $basename); // Limpiamos el basename
-    $filename   = $basename . '.' . $extension;                // Añadimos la extensión con el nombre limpiado
+    $basename   = pathinfo($filename, PATHINFO_FILENAME);                               // Captamos el basename
+    $extension  = pathinfo($filename, PATHINFO_EXTENSION);                              // Captamos la extension
+    $basename   = preg_replace('/[^A-z0-9]/', '-', $basename);        // Limpiamos el basename
+    $filename   = $basename . '.' . $extension;                                                      // Añadimos la extensión con el nombre limpiado
     // Contador
     $i          = 0;
 
@@ -27,7 +27,7 @@ function create_filename($filename, $upload_path){
     return $filename;
 }
 
-// FUNCIÓN - Redimensionar Img
+// FUNCIÓN - Redimensionar Img con GD
 function resize_image_gd($orig_path, $new_path, $max_width, $max_height){
 
     // Inicialización
@@ -35,7 +35,7 @@ function resize_image_gd($orig_path, $new_path, $max_width, $max_height){
     $orig_width  = $image_data[0];                        // ANCHO
     $orig_height = $image_data[1];                        // ALTO
     $media_type  = $image_data['mime'];                   // Media type
-    $new_width   = $max_width;                            // Inicializamos el máximo de ambas
+    $new_width   = $max_width;                            // Inicializamos el nuevo máximo de ambas
     $new_height  = $max_height;
     $orig_ratio  = $orig_width / $orig_height;            // Original image ratio
 
@@ -43,8 +43,12 @@ function resize_image_gd($orig_path, $new_path, $max_width, $max_height){
     if ($orig_width > $orig_height) {                     // Si es un landscape
         $new_height = $new_width / $orig_ratio;           // Set height usando el ratio
     } else {
-        $new_width  = $new_height * $orig_ratio;          // Set width usando el ratio
+        $new_width  = $new_height * $orig_ratio;          // Sino, es portrait -> Set width usando el ratio
     }
+
+    // Convertimos las dimensiones en int
+    $new_width  = (int)round($new_width);
+    $new_height = (int)round($new_height);
     
     // Switch de casos
     switch($media_type) {
@@ -59,9 +63,10 @@ function resize_image_gd($orig_path, $new_path, $max_width, $max_height){
             break;
     }
 
-    $new = imagecreatetruecolor($new_width, $new_height); // Creamos la img en blanco
-
-    imagecopyresampled($new, $orig, 0, 0, 0, 0, $new_width, $new_height, $orig_width, $orig_height); // Copiamos la Original con la nueva
+    // Creamos la nueva imagen
+    $new = imagecreatetruecolor($new_width, $new_height); 
+    // Creamos una copia de la nueva imagen con las nuevas dimensiones
+    imagecopyresampled($new, $orig, 0, 0, 0, 0, $new_width, $new_height, $orig_width, $orig_height);
 
     // Guardamos la img
     switch($media_type) {
@@ -75,6 +80,7 @@ function resize_image_gd($orig_path, $new_path, $max_width, $max_height){
             $result = imagepng($new, $new_path);
             break;
     }
+
     return $result;
 }
 
@@ -82,8 +88,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Comprobamos el error de tamaño de imagen
     $error = ($_FILES['image']['error'] === 1) ? 'too big ' : '';
 
-    if ($_FILES['image']['error'] == 0) {
-        $error  .= ($_FILES['image']['size'] <= $max_size) ? '' : 'too big '; // Check tamaño de imagen
+    if ($_FILES['image']['error'] === 0) {
+        $error  .= ($_FILES['image']['size'] <= $max_size) ? '' : 'too big '; // Tamaño de la imagen
         
         // Comprobamos el Tipo y extensión de la imagen
         $type   = mime_content_type($_FILES['image']['tmp_name']);        
@@ -92,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $ext    = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
         $error .= in_array($ext, $allowed_exts) ? '' : 'wrong file extension ';
 
-        // Si no hay errores creamos la Ruta + Movemos la img + La Redimensionamos
+        // Si no hay errores creamos la Ruta + Movemos la img + Guardamos el Thumb + Redimensionamos
         if (!$error) {
             $filename    = create_filename($_FILES['image']['name'], $upload_path);
             $destination = $upload_path . $filename;

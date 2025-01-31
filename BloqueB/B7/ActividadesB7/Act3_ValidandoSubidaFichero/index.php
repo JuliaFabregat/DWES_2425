@@ -13,11 +13,12 @@ $allowedExtensions = ['jpeg', 'jpg', 'png', 'gif',];
 // Comprobar petición
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     // Comprobamos el tamaño
-    $error = ($_FILES['image']['size'] <= $max_size) ? '' : 'too big';
+    // $error = ($_FILES['image']['size'] <= $max_size) ? '' : 'too big';
 
     // Comprobar si la img tiene errores
     if($_FILES['image']['error'] === 0){
-        $error .= ($_FILES['image']['size'] <= $max_size) ? '' : 'too big';
+        // Comprobamos el tamaño
+        $error = ($_FILES['image']['size'] <= $max_size) ? '' : 'too big';
 
         // Comprobamos si el tipo está permitido
         $type = mime_content_type($_FILES['image']['tmp_name']);

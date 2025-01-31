@@ -2,7 +2,7 @@
 // Ejercicio 5. Redimensionando Imágenes usando Imagick (Pag. 117)
 // Inicialización
 $moved         = false;                                       
-$msj           = '';                                           
+$msj           = '';
 $error         = '';                                           
 $upload_path   = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'uploads'  . DIRECTORY_SEPARATOR;
 $thumb_path    = dirname(__FILE__) . DIRECTORY_SEPARATOR . 'uploads' . DIRECTORY_SEPARATOR . 'thumbs'  . DIRECTORY_SEPARATOR;
@@ -30,10 +30,10 @@ function create_filename($filename, $upload_path){
 // FUNCIÓN - Redimensionar Img
 function resize_image_imagick($source, $thumb_path){
     $img = new Imagick($source);
-    $img->cropThumbnailImage(200, 200); // Create cropped thumbnail
-    $img->writeImage($thumb_path);      // Save file
+    $img->cropThumbnailImage(200, 200); // Recorte - Si añadimos un 3º parametro true respeta la dimensión de la img (Landscape o Portrait)
+    //$img->writeImage($thumb_path);      // Guardamos la img recortada
 
-    return true;
+    return $img->writeImage($thumb_path);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $error = ($_FILES['image']['error'] === 1) ? 'too big ' : '';
 
     if ($_FILES['image']['error'] == 0) {
-        $error  .= ($_FILES['image']['size'] <= $max_size) ? '' : 'too big '; // Check tamaño de imagen
+        $error  .= ($_FILES['image']['size'] <= $max_size) ? '' : 'too big '; // Check tamaño max de la imagen
         
         // Comprobamos el Tipo y extensión de la imagen
         $type   = mime_content_type($_FILES['image']['tmp_name']);        
@@ -54,9 +54,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if (!$error) {
             $filename    = create_filename($_FILES['image']['name'], $upload_path);
             $destination = $upload_path . $filename;
-            $thumbpath   = $thumb_path . 'thumb_' . $filename;
+            $thumbRutaFinal   = $thumb_path . 'thumb_' . $filename;
             $moved       = move_uploaded_file($_FILES['image']['tmp_name'], $destination);
-            $resized     = resize_image_imagick($destination, $thumbpath);
+            $resized     = resize_image_imagick($destination, $thumbRutaFinal);
         }
     }
 
