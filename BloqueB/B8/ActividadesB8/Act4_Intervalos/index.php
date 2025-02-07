@@ -1,4 +1,4 @@
-<!-- Actividad 3. Objeto Date Time (Pag. 65) -->
+<!-- Actividad 4. Intervalos (Pag. 78) -->
 <?php
 $msj = '';
 
