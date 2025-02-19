@@ -1,0 +1,1 @@
+<!-- Actividad 2. Cofiguración de Cookies (Pag.47) -->
