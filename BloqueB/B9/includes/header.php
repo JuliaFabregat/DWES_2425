@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Chapter 9 Examples</title>
+    <title>Mountain Art Supplies</title>
     <link href="../css/styles.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
     <meta charset="UTF-8">
