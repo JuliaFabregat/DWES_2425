@@ -36,20 +36,62 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $animal['genero']   = $_POST['genero'] ?? '';
     $animal['alt']      = $_POST['alt'] ?? '';
 
-    // Validaciones
+    // Validación - Nombre
     $errors['nombre'] = is_text($animal['nombre'], 1, 50) 
-        ? '' : 'Nombre debe tener 1-50 caracteres';
+        ? '' : 'El nombre debe tener de entre 1 a 50 caracteres';
 
+    // Validación - Especie
     $errors['especie'] = is_especie_id($animal['especie_id'], $especies_list) 
         ? '' : 'Especie no válida';
 
+    // Validación - Edad
     $errors['edad'] = is_age_valid($animal['edad']) 
         ? '' : 'Formato: "2 años", "11 meses", etc.';
 
+    // Validación - Imagen
     if (!empty($_FILES['imagen']['name'])) {
-        $imagen_valida = is_imagen_valida($_FILES['imagen']);
-        $errors['imagen'] = $imagen_valida 
-            ? '' : 'La imagen debe ser JPG/PNG y menor a 2MB';
+        $allowed_extensions = ['jpg', 'jpeg', 'png'];
+        $allowed_mime_types = ['image/jpeg', 'image/png'];
+        $max_size = 2 * 1024 * 1024; // 2MB
+        
+        $file_name = $_FILES['imagen']['name'];
+        $file_tmp = $_FILES['imagen']['tmp_name'];
+        $file_size = $_FILES['imagen']['size'];
+        $file_error = $_FILES['imagen']['error'];
+
+        // Validar extensión
+        $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+        if (!in_array($file_extension, $allowed_extensions)) {
+            $errors['imagen'] = 'Formato no permitido. Solo JPG, JPEG, PNG.';
+        }
+
+        // Validar MIME type
+        $finfo = finfo_open(FILEINFO_MIME_TYPE);
+        $mime_type = finfo_file($finfo, $file_tmp);
+        finfo_close($finfo);
+        if (!in_array($mime_type, $allowed_mime_types)) {
+            $errors['imagen'] = 'El archivo no es una imagen válida.';
+        }
+
+        // Validar contenido real
+        if (!getimagesize($file_tmp)) {
+            $errors['imagen'] = 'El archivo no es una imagen válida.';
+        }
+
+        // Validar tamaño
+        if ($file_size > $max_size) {
+            $errors['imagen'] = 'El tamaño máximo permitido es 2MB.';
+        }
+
+        // Validar error de subida
+        if ($file_error !== UPLOAD_ERR_OK) {
+            $errors['imagen'] = 'Error al subir el archivo.';
+        }
+
+        // Validar que sea un archivo subido
+        if (!is_uploaded_file($file_tmp)) {
+            $errors['imagen'] = 'Archivo no válido o corrupto.';
+        }
     } else {
         $errors['imagen'] = 'Debes subir una imagen';
     }
@@ -57,49 +99,68 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Procesar si no hay errores
     if (!array_filter($errors)) {
         try {
-            // Subir imagen
+            // Configurar nombre personalizado
+            $animal_name = strtolower(preg_replace('/[^a-zA-Z0-9]/', '_', $animal['nombre']));
+            $animal_name = trim($animal_name, '_') ?: 'animal';
+            $new_filename = $animal_name . '_' . uniqid() . '.' . $file_extension;
             $target_dir = "uploads/";
-            $target_file = $target_dir . basename($_FILES["imagen"]["name"]);
-            
-            if (move_uploaded_file($_FILES["imagen"]["tmp_name"], $target_file)) {
-                // Insertar imagen
-                $sql = "INSERT INTO imagenes (imagen, alt) VALUES (:imagen, :alt)";
-                pdo($pdo, $sql, [
-                    'imagen' => basename($_FILES["imagen"]["name"]),
-                    'alt' => $animal['alt']
-                ]);
-                $imagen_id = $pdo->lastInsertId();
+            $target_file = $target_dir . $new_filename;
 
-                // Obtener nombre de especie para insertar el nombre en la tabla
-                $especie_nombre = '';
-
-                foreach ($especies_list as $especie) {
-                    if ($especie['id'] == $animal['especie_id']) {
-                        $especie_nombre = $especie['especie'];
-                        break;
-                    }
+            // Crear directorio si no existe
+            if (!is_dir($target_dir)) {
+                if (!mkdir($target_dir, 0755, true)) {
+                    throw new Exception("No se pudo crear el directorio de imágenes");
                 }
-
-                // Insertar animal
-                $sql = "INSERT INTO animales 
-                        (nombre, especie, raza, edad, genero, especie_id, imagen_id) 
-                        VALUES 
-                        (:nombre, :especie, :raza, :edad, :genero, :especie_id, :imagen_id)";
-                
-                pdo($pdo, $sql, [
-                    'nombre' => $animal['nombre'],
-                    'especie' => $especie_nombre, // Nombre de la especie
-                    'raza' => $animal['raza'],
-                    'edad' => $animal['edad'],
-                    'genero' => $animal['genero'],
-                    'especie_id' => $animal['especie_id'], // ID de la especie
-                    'imagen_id' => $imagen_id
-                ]);
-
-                redirect('lista-animales.php', ['success' => 'Animal agregado']);
             }
+
+            // Verificar existencia (aunque es improbable con uniqid)
+            if (file_exists($target_file)) {
+                $errors['imagen'] = 'Nombre de archivo duplicado. Por favor, intenta de nuevo.';
+            }
+
+            // Subir archivo
+            if (!move_uploaded_file($file_tmp, $target_file)) {
+                throw new Exception("Error al mover el archivo");
+            }
+
+            // Insertar imagen
+            $sql = "INSERT INTO imagenes (imagen, alt) VALUES (:imagen, :alt)";
+            pdo($pdo, $sql, [
+                'imagen' => $new_filename,
+                'alt' => $animal['alt']
+            ]);
+            $imagen_id = $pdo->lastInsertId();
+
+            // Obtener nombre de especie
+            $especie_nombre = '';
+            foreach ($especies_list as $especie) {
+                if ($especie['id'] == $animal['especie_id']) {
+                    $especie_nombre = $especie['especie'];
+                    break;
+                }
+            }
+
+            // Insertar animal
+            $sql = "INSERT INTO animales 
+                    (nombre, especie, raza, edad, genero, especie_id, imagen_id) 
+                    VALUES 
+                    (:nombre, :especie, :raza, :edad, :genero, :especie_id, :imagen_id)";
+            
+            pdo($pdo, $sql, [
+                'nombre' => $animal['nombre'],
+                'especie' => $especie_nombre,
+                'raza' => $animal['raza'],
+                'edad' => $animal['edad'],
+                'genero' => $animal['genero'],
+                'especie_id' => $animal['especie_id'],
+                'imagen_id' => $imagen_id
+            ]);
+
+            redirect('lista-animales.php', ['success' => 'Animal agregado']);
         } catch (PDOException $e) {
-            $errors['warning'] = 'Error al guardar: ' . $e->getMessage();
+            $errors['warning'] = 'Error en la base de datos: ' . $e->getMessage();
+        } catch (Exception $e) {
+            $errors['warning'] = 'Error: ' . $e->getMessage();
         }
     } else {
         $errors['warning'] = 'Por favor, corrija los errores';
