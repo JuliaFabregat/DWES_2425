@@ -3,7 +3,7 @@ declare(strict_types = 1);                               // Use strict types
 require 'includes/database-connection.php';              // Create PDO object
 require 'includes/functions.php';                        // Include functions
 
-// Consulta para obtener los últimos 6 animales con sus especies e imágenes
+// Consulta para obtener los animales ordenados por más recientes
 $sql = "SELECT 
             a.id, 
             a.nombre, 
@@ -17,8 +17,8 @@ $sql = "SELECT
         FROM animales AS a
         JOIN especies AS e ON a.especie_id = e.id
         LEFT JOIN imagenes AS i ON a.imagen_id = i.id
-        ORDER BY a.joined DESC
-        LIMIT 6";
+        ORDER BY a.joined DESC";
+        // LIMIT 6";
 
 $animales = pdo($pdo, $sql)->fetchAll();
 
