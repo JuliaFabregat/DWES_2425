@@ -24,9 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     $edad = filter_input(INPUT_POST, 'edad', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-    $sql = "UPDATE animales SET 
-                nombre = :nombre,
-                edad = :edad
+    $sql = "UPDATE animales SET nombre = :nombre, edad = :edad
             WHERE id = :id";
     
     pdo($pdo, $sql, [
@@ -49,6 +47,7 @@ $section = 'listaAnimales';
 
 <!-- HTML -->
 <?php include 'includes/header.php'; ?>
+
 <main class="container" id="content">
     <h1>Editar Animal</h1>
     <form method="POST">
@@ -60,8 +59,9 @@ $section = 'listaAnimales';
             <label>Edad:</label>
             <input type="text" name="edad" value="<?= $animal['edad'] ?? '' ?>">
         </div>
-        <button type="submit" class="button">Guardar cambios</button>
+        <button type="submit" class="button secondary">Guardar cambios</button>
         <a href="lista-animales.php" class="button secondary">Cancelar</a>
     </form>
 </main>
+
 <?php include 'includes/footer.php'; ?>

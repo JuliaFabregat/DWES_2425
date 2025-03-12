@@ -59,13 +59,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $file_size = $_FILES['imagen']['size'];
         $file_error = $_FILES['imagen']['error'];
 
-        // Validar extensión
+        // Validar - Extensión
         $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
         if (!in_array($file_extension, $allowed_extensions)) {
             $errors['imagen'] = 'Formato no permitido. Solo JPG, JPEG, PNG.';
         }
 
-        // Validar MIME type
+        // Validar - MIME type
         $finfo = finfo_open(FILEINFO_MIME_TYPE);
         $mime_type = finfo_file($finfo, $file_tmp);
         finfo_close($finfo);
@@ -73,22 +73,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $errors['imagen'] = 'El archivo no es una imagen válida.';
         }
 
-        // Validar contenido real
+        // Validar - Contenido
         if (!getimagesize($file_tmp)) {
             $errors['imagen'] = 'El archivo no es una imagen válida.';
         }
 
-        // Validar tamaño
+        // Validar - Tamaño
         if ($file_size > $max_size) {
             $errors['imagen'] = 'El tamaño máximo permitido es 2MB.';
         }
 
-        // Validar error de subida
+        // Validar - Error de subida
         if ($file_error !== UPLOAD_ERR_OK) {
             $errors['imagen'] = 'Error al subir el archivo.';
         }
 
-        // Validar que sea un archivo subido
+        // Validar - Archivo subido
         if (!is_uploaded_file($file_tmp)) {
             $errors['imagen'] = 'Archivo no válido o corrupto.';
         }
@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Configurar nombre personalizado
             $animal_name = strtolower(preg_replace('/[^a-zA-Z0-9]/', '_', $animal['nombre']));
             $animal_name = trim($animal_name, '_') ?: 'animal';
-            $new_filename = $animal_name . '_' . uniqid() . '.' . $file_extension;
+            $new_filename = $animal_name . '_' . uniqid() . '.' . $file_extension;  // Con uniqid() evito duplicados por si 2 animales se llaman igual
             $target_dir = "uploads/";
             $target_file = $target_dir . $new_filename;
 
@@ -177,6 +177,7 @@ $section = 'agregarAnimales';
 
 <!-- HTML -->
 <?php include 'includes/header.php'; ?>
+
 <main class="container admin" id="content">
     <form action="agregar-animales.php" method="post" enctype="multipart/form-data" class="narrow">
         <h1>Agregar Animal</h1>
@@ -239,4 +240,5 @@ $section = 'agregarAnimales';
         <input type="submit" value="Guardar" class="button secondary">
     </form>
 </main>
+
 <?php include 'includes/footer.php'; ?>

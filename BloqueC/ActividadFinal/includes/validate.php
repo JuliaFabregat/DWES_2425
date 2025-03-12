@@ -18,6 +18,7 @@ function is_especie_id($especie_id, array $especies_list): bool {
     return false;
 }
 
+// Valido en el código
 function is_imagen_valida(array $imagen): bool {
     $allowed_types = ['image/jpeg', 'image/png'];
     return in_array($imagen['type'], $allowed_types) && $imagen['size'] > 0;

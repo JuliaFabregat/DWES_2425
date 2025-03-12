@@ -3,8 +3,9 @@ declare(strict_types=1);
 require 'includes/database-connection.php';
 require 'includes/functions.php';
 
-// Recoger la especie seleccionada (si existe) y validarla
+// Recoger la especie seleccionada (si existe) y la validamos
 $selectedSpecies = $_GET['especie'] ?? '';
+
 if ($selectedSpecies !== '' && !ctype_digit($selectedSpecies)) {
     $selectedSpecies = ''; // Si no es un valor numérico, lo ignoramos
 }
@@ -29,7 +30,7 @@ if ($selectedSpecies !== '') {
     $params['especie_id'] = $selectedSpecies;
 }
 
-$sql .= " ORDER BY a.id DESC";
+$sql .= " ORDER BY a.nombre ASC";
 
 // Ejecutar la consulta con o sin parámetros
 $animales = pdo($pdo, $sql, $params)->fetchAll();
@@ -49,6 +50,7 @@ $section = 'listaAnimales';
 
 <!-- HTML -->
 <?php include 'includes/header.php'; ?>
+
 <main class="container" id="content">
     <h1>Gestión de Animales</h1>
     
@@ -97,4 +99,5 @@ $section = 'listaAnimales';
         </tbody>
     </table>
 </main>
+
 <?php include 'includes/footer.php'; ?>

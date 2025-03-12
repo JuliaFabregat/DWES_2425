@@ -9,17 +9,17 @@ if (!$id) {
 }
 
 try {
-    // 1. Obtener información de la imagen asociada
+    // Obtenemos la info de la imagen
     $sql = "SELECT imagen_id FROM animales WHERE id = :id";
     $stmt = $pdo->prepare($sql);
     $stmt->execute(['id' => $id]);
     $imagen_id = $stmt->fetchColumn();
 
-    // 2. Eliminar el animal
+    // Eliminamos el animal
     $sql = "DELETE FROM animales WHERE id = :id";
     pdo($pdo, $sql, ['id' => $id]);
 
-    // 3. Si existe imagen asociada, eliminarla también
+    // Si existe imagen asociada, eliminarla también
     if ($imagen_id) {
         // Obtener nombre del archivo
         $sql_imagen = "SELECT imagen FROM imagenes WHERE id = :imagen_id";
@@ -31,7 +31,7 @@ try {
         $sql_delete = "DELETE FROM imagenes WHERE id = :imagen_id";
         pdo($pdo, $sql_delete, ['imagen_id' => $imagen_id]);
 
-        // Eliminar archivo físico (si existe)
+        // Eliminar archivo como tal de la carpeta uploads
         $ruta_archivo = "uploads/" . $nombre_imagen;
         if (file_exists($ruta_archivo)) {
             unlink($ruta_archivo);

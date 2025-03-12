@@ -48,6 +48,32 @@ article.summary a:hover p
   color: #c494e0;
 }
 
+.divUltimosAnimales{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.details{
+  margin-top: 20px;
+
+  h1{
+    color: #c494e0;
+  }
+
+  .metadata{
+    margin-top: 20px;
+  }
+
+  .description{
+
+    h3{
+      padding-top: 20px;
+      color: #c494e0;
+    }
+  }
+}
+
 
 
 /* TYPE */

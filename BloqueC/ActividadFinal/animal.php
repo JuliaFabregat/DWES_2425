@@ -49,6 +49,7 @@ $section = "descripcionAnimal";
 
 <!-- HTML -->
 <?php include 'includes/header.php'; ?>
+
 <main class="container" id="content">
     <div class="animal-detail">
         <section class="image">
@@ -56,7 +57,9 @@ $section = "descripcionAnimal";
                  alt="<?= html_escape($animal['image_alt'] ?? 'Imagen de animal') ?>">
         </section>
         <section class="details">
+
             <h1><?= html_escape($animal['nombre']) ?></h1>
+            
             <div class="metadata">
                 <p><strong>Especie:</strong> <?= html_escape($animal['especie']) ?></p>
                 <p><strong>Raza:</strong> <?= html_escape($animal['raza'] ?? 'Desconocida') ?></p>
@@ -64,11 +67,14 @@ $section = "descripcionAnimal";
                 <p><strong>Género:</strong> <?= html_escape($animal['genero']) ?></p>
                 <p><strong>Rescatado:</strong> <?= format_date($animal['joined']) ?></p>
             </div>
+
             <div class="description">
                 <h3>Dato curioso sobre la especie</h3>
                 <p><?= html_escape($animal['especie_descripcion'] ?? 'No hay dato curioso disponible :(') ?></p>
             </div>
+
         </section>
     </div>
 </main>
+
 <?php include 'includes/footer.php'; ?>

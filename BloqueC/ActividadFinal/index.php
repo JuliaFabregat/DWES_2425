@@ -32,6 +32,11 @@ $description = 'Últimos animales rescatados en nuestro refugio';
 
 <!-- HTML -->
 <?php include 'includes/header.php'; ?>
+
+<div class="divUltimosAnimales">
+    <h1 class="h1_title">Últimos animales rescatados</h1>
+</div>
+
 <main class="container grid" id="content">
     <?php foreach ($animales as $animal) { ?>
         <article class="summary">
@@ -40,13 +45,14 @@ $description = 'Últimos animales rescatados en nuestro refugio';
                      alt="<?= html_escape($animal['image_alt'] ?? 'Imagen de animal') ?>">
                 <h2><?= html_escape($animal['nombre']) ?></h2>
                 <p>
-                    <strong>Especie:</strong> <?= html_escape($animal['especie']) ?><br>
-                    <strong>Raza:</strong> <?= html_escape($animal['raza'] ?? 'Desconocida') ?><br>
-                    <strong>Edad:</strong> <?= html_escape($animal['edad'] ?? 'N/A') ?><br>
-                    <strong>Género:</strong> <?= html_escape($animal['genero']) ?>
+                    <b>Especie:</b> <?= html_escape($animal['especie']) ?><br>
+                    <b>Raza:</b> <?= html_escape($animal['raza'] ?? 'Desconocida') ?><br>
+                    <b>Edad:</b> <?= html_escape($animal['edad'] ?? 'N/A') ?><br>
+                    <b>Género:</b> <?= html_escape($animal['genero']) ?>
                 </p>
             </a>
         </article>
     <?php } ?>
 </main>
+
 <?php include 'includes/footer.php'; ?>
